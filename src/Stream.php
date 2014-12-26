@@ -31,8 +31,8 @@ class Stream extends EventEmitter implements StreamInterface, ReadableStreamInte
     private $stream;
     private $size;
     private $seekable;
-    private $readable;
-    private $writable;
+    private $readable = true;
+    private $writable = true;
     private $uri;
     private $customMetadata;
 
@@ -127,7 +127,7 @@ class Stream extends EventEmitter implements StreamInterface, ReadableStreamInte
      */
     public function __construct($stream, $options = [], LoopInterface $loop)
     {
-        if (!is_resource($this->stream) || get_resource_type($this->stream) !== "stream") {
+        if (!is_resource($stream) || get_resource_type($stream) !== "stream") {
             throw new \InvalidArgumentException('First parameter must be a valid stream resource');
         }
         $this->stream = $stream;
@@ -325,8 +325,6 @@ class Stream extends EventEmitter implements StreamInterface, ReadableStreamInte
     {
         $meta = stream_get_meta_data($this->stream);
         $this->seekable = $meta['seekable'];
-        $this->readable = isset(self::$readWriteHash['read'][$meta['mode']]);
-        $this->writable = isset(self::$readWriteHash['write'][$meta['mode']]);
         $this->uri = $this->getMetadata('uri');
     }
 
