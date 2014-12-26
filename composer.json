@@ -1,0 +1,15 @@
+{
+    "name": "iwai/react-guzzle-stream",
+    "keywords": [ "stream", "pipe", "react", "guzzle" ],
+    "license" : "MIT",
+    "require" : {
+        "react/stream": "~0.4",
+        "guzzlehttp/streams": "~3.0",
+        "react/event-loop": "0.4.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Iwai\\React\\Guzzle\\": "src"
+        }
+    }
+}
